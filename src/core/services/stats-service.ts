@@ -8,6 +8,7 @@ export type ChartDatum = {
 };
 
 export type StatsResult = {
+  respondents: Array<{ id: string; name: string; email: string }>;
   totalResponses: number;
   responsesToday: number;
   ageRange: ChartDatum[];
@@ -69,6 +70,7 @@ export async function getSurveyStats(): Promise<StatsResult> {
   ).length;
 
   return {
+    respondents: responses.map(({ id, name, email }) => ({ id, name, email })),
     totalResponses: responses.length,
     responsesToday,
     ageRange: countBy(responses.map((item) => item.ageRange)),
