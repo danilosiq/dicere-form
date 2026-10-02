@@ -18,7 +18,9 @@ export async function POST(request: Request) {
     await createSurveyResponse(parsed.data);
 
     return NextResponse.json({ success: true }, { status: 201 });
-  } catch {
+  } catch (error) {
+    console.error("[survey] Failed to save response:", error);
+
     return NextResponse.json(
       { error: "Não foi possível salvar a resposta." },
       { status: 500 },
